@@ -1,38 +1,49 @@
 #include "main.h"
-#include <stdio.h>
-
 /**
- * _atoi - converests a string to an integer
- * @s: string to convert
- * Return: numbre
+ * _atoi -  convert a string to an integer.
+ * @s: string
+ *
+ * Return: if no number in the string 0 otherwise the number.
  */
-
-
 int _atoi(char *s)
 {
-	int n, i, m;
+	unsigned int num = 0;
+	int len = 0, digit, found = 0;
+	char sign, c1, c2;
 
-	m = 1;
-	i = n = 0;
-	while ((s[i] < '0' || s[i] > '9') && s[i] != 0)
+	while (*(s + len) != '\0')
 	{
-		if (s[i] == '-')
-			m = m * -1;
-		i++;
-	}
-	while ((s[i] >= '0' && s[i] <= '9') && s[i] != 0)
-	{
-		if (n >= 0)
+		c1 = *(s + len);
+		c2 = *(s + len + 1);
+		if (c1 == ' ')
 		{
-			n = n * 10 - (s[i] - '0');
-			i++;
-		}
-		else
+			++len;
+			continue; }
+		if (c1 == '-')
 		{
-			n = n * 10 - (s[i] - '0');
-			i++;
+			if ((c2 >= '0' && c2 <= '9') || c2 == ' ' || c2 == '-' || c2 == '+')
+			{
+				if (sign == '-')
+					sign = ' ';
+				else
+					sign = '-';
+			}}
+		if (c1 >= '0' && c1 <= '9')
+		{
+			found = 1;
+			digit = 0;
+			while (digit <= 9)
+			{
+				if (*(s + len) == digit + '0')
+					num = (num * 10) + digit;
+				++digit;
+			}
+			if (!(c2 >= '0' &&  c2 <= '9'))
+				break;
+			}
+			++len;
 		}
-	}
-	m = m * -1;
-	return (n * m);
+		if (found == 1 && sign == '-')
+			num = -1 * num;
+	return (num);
 }
